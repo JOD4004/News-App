@@ -1,0 +1,90 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.5.3/cyborg/bootstrap.min.css"
+    integrity="sha512-QzwqVdCfEIUhmovYlJ/ET11Uh4MLuvEpwVpTVTRhChwzgfkrQH9BMcDvgwFpi5fMUGVLJAPsEXJVHuODuhmctg=="
+    crossorigin="anonymous" />
+  <title>News App</title>
+</head>
+
+<body>
+  <!-- Move to top -->
+<button style="position: fixed;bottom: 20px;right: 20px;display: none;" type="button" class="btn btn-danger btn-floating btn-lg" id="btn-back-to-top">
+  <i class="fas fa-arrow-up">Go to Top</i>
+</button>
+<script type="text/javascript">
+  //Get the button
+  let mybutton = document.getElementById("btn-back-to-top");
+
+  // When the user scrolls down 20px from the top of the document, show the button
+  window.onscroll = function () {
+  scrollFunction();
+  };
+
+  function scrollFunction() {
+  if (
+  document.body.scrollTop > 20 ||
+  document.documentElement.scrollTop > 20
+  ) {
+  mybutton.style.display = "block";
+  } else {
+  mybutton.style.display = "none";
+  }
+  }
+  // When the user clicks on the button, scroll to the top of the document
+  mybutton.addEventListener("click", backToTop);
+
+  function backToTop() {
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+  }
+</script>
+
+<!-- Card for header -->
+<div class="top" style="text-align: center; margin-top:40px">
+  <h2>Top News</h2>
+</div>
+
+<!-- Navigation bar -->
+<nav  style="margin-bottom: 2%;" class="navbar navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a  class="btn btn-light"  href="{% url 'index'%}">Home</a>
+    <a class="btn btn-secondary" href="{% url 'entertainment'%}">Entertainment</a>
+    <a class="btn btn-success" href="{% url 'business'%}">Business</a>
+    <a class="btn btn-danger" href="{% url 'general'%}">General</a>
+    <a class="btn btn-info" href="{% url 'health'%}">Health</a>
+    <a class="btn btn-primary" href="{% url 'science'%}">Science</a>
+    <a class="btn btn-warning" href="{% url 'sports'%}">Sports</a>
+    <a class="btn btn-dark" href="{% url 'technology'%}">Technology</a>
+    <form method="post">
+      {%csrf_token%}
+      <input style="margin-bottom: 1%; width: 200%;max-width: 100%; border-radius: 20px;height: 50px;" type="text" name="word" placeholder="  Search about something specific">
+      <input type="submit" class="btn btn-warning">
+    </form>
+  </div>
+</nav>
+
+
+
+
+<!-- Main -->
+<div class="container">
+  {% for hl, des, img ,url in mylist %}
+  <div style=" background-color:grey; border-style:solid ;margin-bottom: 2%;border-radius: 15px;border-color: beige;" >
+    <p style= "color:cyan; margin-left: 2%; font-size: 300%;"><b>{{ hl }}{{ value|linebreaks }}</b> <p><hr>
+    <div class="">
+      <img style=" border-style: double; margin-left: 15%; width:70% ;" src="{{ img }}" alt="image">
+    </div>
+    <p style="font-size:200%;color: white;margin-left: 2%;">{{ des }}{{ value|linebreaks }}<a style="margin-left: 2%;" class="btn btn-primary" href="{{url}}">Continue to article</a></p>
+    
+  </div>
+  {% endfor %}
+  <p style="color: white;margin-left: 3%;">End of page!!</p>
+</div>
+</body>
+
+</html>

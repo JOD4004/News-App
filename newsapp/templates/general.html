@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.5.3/cyborg/bootstrap.min.css"
+    integrity="sha512-QzwqVdCfEIUhmovYlJ/ET11Uh4MLuvEpwVpTVTRhChwzgfkrQH9BMcDvgwFpi5fMUGVLJAPsEXJVHuODuhmctg=="
+    crossorigin="anonymous" />
+    <title>General</title>
+</head>
+<body>
+
+
+    <!-- Got to Top Button -->
+<button style="position: fixed;bottom: 20px;right: 20px;display: none;" type="button" class="btn btn-danger btn-floating btn-lg" id="btn-back-to-top">
+<i class="fas fa-arrow-up">Go to Top</i>
+</button>
+<script type="text/javascript">
+//Get the button
+let mybutton = document.getElementById("btn-back-to-top");
+
+// When the user scrolls down 20px from the top of the document, show the button
+window.onscroll = function () {
+scrollFunction();
+};
+
+function scrollFunction() {
+if (
+document.body.scrollTop > 20 ||
+document.documentElement.scrollTop > 20
+) {
+mybutton.style.display = "block";
+} else {
+mybutton.style.display = "none";
+}
+}
+// When the user clicks on the button, scroll to the top of the document
+mybutton.addEventListener("click", backToTop);
+
+function backToTop() {
+document.body.scrollTop = 0;
+document.documentElement.scrollTop = 0;
+}
+</script>
+
+
+<!-- Home link -->
+<a style="float: left;margin-top: 2%;margin-left: 3%;" class="btn btn-primary" href="{%url 'index'%}">Home</a>
+<div class="top" style="text-align: center; margin-top:40px">
+    
+    <h2>Business</h2>
+</div>
+
+<!-- Main -->
+<div class="container">
+    {% for hl, des, img ,url in mylist %}
+    <div style=" background-color:grey; border-style:solid ;margin-bottom: 2%;border-radius: 15px;border-color: beige;" >
+        <p style= "color:cyan; margin-left: 2%; font-size: 300%;"><b>{{ hl }}{{ value|linebreaks }}</b> <p><hr>
+        <div class="">
+            <img style=" border-style: double; margin-left: 15%; width:70% ;" src="{{ img }}" alt="image">
+        </div>
+        <p style="font-size:200%;color: white;margin-left: 2%;">{{ des }}{{ value|linebreaks }}<a style="margin-left: 2%;" class="btn btn-primary" href="{{url}}">Continue to article</a></p>
+        
+    </div>
+    {% endfor %}
+    <p style="color: white;margin-left: 3%;">End of page!!</p>
+</div>   
+</body>
+</html>
